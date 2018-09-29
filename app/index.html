@@ -1,0 +1,63 @@
+<DOCTYPE html>
+	<html ng-app="currencyApp">
+
+		<head>
+      <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+			<title>Currency Converter</title>
+		</head>
+
+		<body ng-controller="currencyAppController as ctrl">
+
+			<section>
+        <div class="container">
+          <h1>{{ ctrl.greeting }}</h1>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <hr class="line">
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+					<label>Base Currency</label>
+          <select ng-model="ctrl.data.base" ng-options="option.name for option in ctrl.data.currencyList track by option.name" ng-change="ctrl.changeCurrencyBase()"></select>
+        </div>
+      <section>
+
+			<section>
+	       <div class="container">
+					<label>Target Currency</label>
+	         <select ng-model="ctrl.data.target" ng-options="option.name for option in ctrl.data.currencyList track by option.name"></select>
+	       </div>
+	    <section>
+
+				<div class="container">
+				 <label>Amount</label>
+					<input ng-model="ctrl.input"></input>
+				</div>
+
+				<div class="container">
+					<button ng-click="ctrl.convertAmount(ctrl.input, ctrl.data.target.value)">Convert Amount</button>
+				</div>
+
+				<div class="container" ng-if="ctrl.input && ctrl.amount">
+					{{ ctrl.input | currency:ctrl.data.base.name }} = {{ ctrl.amount.toFixed(3) | currency:ctrl.data.target.name }}
+				</div>
+
+				<div class="container"><br /></div>
+
+				<div class="container">
+					<ul>
+						<li ng-repeat="currency in ctrl.data.currencyList">{{ currency.name }} {{ currency.value.toFixed(3) }}</li>
+					</ul>
+				</div>
+
+      <script type="text/javascript" src="lib/jquery.min.js"></script>
+      <script type="text/javascript" src="lib/angular.min.js"></script>
+      <script type="text/javascript" src="app.js"></script>
+		</body>
+	</html>
